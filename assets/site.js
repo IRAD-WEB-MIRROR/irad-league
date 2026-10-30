@@ -375,7 +375,7 @@
     var facts = [
       [t("founded"), c.founded], [t("city"), L(c.city)],
       [t("ground"), '<a href="stadiums.html#' + c.ground + '">' + esc(L(g.name)) + "</a>" + (g.capacity ? ' <span class="muted">(' + esc(t("seats", { n: g.capacity.toLocaleString(LANG === "ru" ? "ru-RU" : "en-GB") })) + ")</span>" : "")],
-      [t("owner"), esc(L(c.owner))],
+      [t("owner"), c.owner_url ? '<a href="' + esc(c.owner_url) + '">' + esc(L(c.owner)) + "</a>" : esc(L(c.owner))],
       [t("colours"), c.colour.map(function (h) { return '<span class="swatch" style="background:' + h + '"></span>'; }).join("") + " " + esc(L(c.colours))],
       [t("titles"), c.titles]
     ];
