@@ -1,0 +1,159 @@
+{
+ "_note": "Women's League 2026 (six clubs, double round robin, 10 rounds, Sundays). Table after round 9; round 10 fixtures.",
+ "season": 2026,
+ "rounds": 10,
+ "after_round": 10,
+ "after_date": "2026-10-25",
+ "latest": {
+  "date": "2026-10-25",
+  "home": "tulpar",
+  "away": "akademiya",
+  "score": [
+   2,
+   2
+  ]
+ },
+ "next": {
+  "round": 10,
+  "date": "2026-10-25",
+  "time": "14:00",
+  "matches": [
+   {
+    "home": "attelkom",
+    "away": "neftchi",
+    "score": [
+     3,
+     0
+    ]
+   },
+   {
+    "home": "universitet",
+    "away": "iyikjanyl",
+    "score": [
+     3,
+     2
+    ]
+   },
+   {
+    "home": "tulpar",
+    "away": "akademiya",
+    "score": [
+     2,
+     2
+    ]
+   }
+  ]
+ },
+ "clubs": [
+  {
+   "id": "tulpar",
+   "name": {
+    "en": "Tulpar Talas",
+    "ir": "Tulpar Talas",
+    "ru": "Тулпар Талас"
+   }
+  },
+  {
+   "id": "universitet",
+   "name": {
+    "en": "Universitet Talas",
+    "ir": "Universitet Talas",
+    "ru": "Университет Талас"
+   }
+  },
+  {
+   "id": "neftchi",
+   "name": {
+    "en": "Neftchi Nurzhan",
+    "ir": "Neftchi Nurzhan",
+    "ru": "Нефтчи Нуржан"
+   }
+  },
+  {
+   "id": "attelkom",
+   "name": {
+    "en": "Attelkom Talas",
+    "ir": "Attelkom Talas",
+    "ru": "Аттелком Талас"
+   }
+  },
+  {
+   "id": "akademiya",
+   "name": {
+    "en": "Akademiya Talas",
+    "ir": "Akademiya Talas",
+    "ru": "Академия Талас"
+   }
+  },
+  {
+   "id": "iyikjanyl",
+   "name": {
+    "en": "FC Iyık Janyl",
+    "ir": "FC Iyık Janyl",
+    "ru": "ФК «Ийык Джаныл»"
+   }
+  }
+ ],
+ "table": [
+  {
+   "club": "tulpar",
+   "p": 10,
+   "w": 7,
+   "d": 2,
+   "l": 1,
+   "gf": 21,
+   "ga": 9,
+   "pts": 23
+  },
+  {
+   "club": "universitet",
+   "p": 10,
+   "w": 7,
+   "d": 1,
+   "l": 2,
+   "gf": 20,
+   "ga": 9,
+   "pts": 22
+  },
+  {
+   "club": "attelkom",
+   "p": 10,
+   "w": 4,
+   "d": 4,
+   "l": 2,
+   "gf": 18,
+   "ga": 9,
+   "pts": 16
+  },
+  {
+   "club": "akademiya",
+   "p": 10,
+   "w": 3,
+   "d": 3,
+   "l": 4,
+   "gf": 10,
+   "ga": 17,
+   "pts": 12
+  },
+  {
+   "club": "iyikjanyl",
+   "p": 10,
+   "w": 1,
+   "d": 3,
+   "l": 6,
+   "gf": 9,
+   "ga": 22,
+   "pts": 6
+  },
+  {
+   "club": "neftchi",
+   "p": 10,
+   "w": 1,
+   "d": 1,
+   "l": 8,
+   "gf": 6,
+   "ga": 18,
+   "pts": 4
+  }
+ ]
+}

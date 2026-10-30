@@ -1,0 +1,272 @@
+{
+ "_note": "First League 2026 (triple round robin, 21 rounds, Sundays). Table after the last round played; `next` is the coming round, `upcoming` the rounds after it.",
+ "season": 2026,
+ "rounds": 21,
+ "after_round": 20,
+ "after_date": "2026-10-25",
+ "next": {
+  "round": 21,
+  "date": "2026-11-01",
+  "time": "15:00",
+  "matches": [
+   {
+    "home": "politekhnik",
+    "away": "toktogul"
+   },
+   {
+    "home": "semiz",
+    "away": "akademiya"
+   },
+   {
+    "home": "karabulak",
+    "away": "bazarkorgon"
+   },
+   {
+    "home": "navbahor",
+    "away": "beshterek"
+   }
+  ]
+ },
+ "upcoming": [],
+ "clubs": [
+  {
+   "id": "bazarkorgon",
+   "name": {
+    "en": "Bazar-Korgon",
+    "ir": "Bazar-Korgon",
+    "ru": "Базар-Коргон"
+   },
+   "city": {
+    "en": "Bazar-Korgon",
+    "ir": "Bazar-Korgon",
+    "ru": "Базар-Коргон"
+   }
+  },
+  {
+   "id": "toktogul",
+   "name": {
+    "en": "Toktogul",
+    "ir": "Toktogul",
+    "ru": "Токтогул"
+   },
+   "city": {
+    "en": "Toktogul",
+    "ir": "Toktogul",
+    "ru": "Токтогул"
+   }
+  },
+  {
+   "id": "semiz",
+   "name": {
+    "en": "Deportivo Semiz",
+    "ir": "Deportivo Semiz",
+    "ru": "«Депортиво» Семиз"
+   },
+   "city": {
+    "en": "Semiz, Talas",
+    "ir": "Semiz, Talas",
+    "ru": "Семиз, Талас"
+   },
+   "note": {
+    "en": "In the First League since 2018; grew out of the amateur league of the Mexican community of Talas.",
+    "ir": "2018-jıldan beri Birinchi Ligada; Talastagı meksikalık jamaattın ışkıbaz ligasınan chıkkan.",
+    "ru": "В Первой лиге с 2018 года; вырос из любительской лиги мексиканской общины Таласа."
+   }
+  },
+  {
+   "id": "karabulak",
+   "name": {
+    "en": "Kara-Bulak",
+    "ir": "Kara-Bulak",
+    "ru": "Кара-Булак"
+   },
+   "city": {
+    "en": "Kara-Bulak",
+    "ir": "Kara-Bulak",
+    "ru": "Кара-Булак"
+   }
+  },
+  {
+   "id": "politekhnik",
+   "name": {
+    "en": "Politekhnik Nurzhan",
+    "ir": "Politekhnik Nurzhan",
+    "ru": "Политехник Нуржан"
+   },
+   "city": {
+    "en": "Nurzhan",
+    "ir": "Nurzhan",
+    "ru": "Нуржан"
+   }
+  },
+  {
+   "id": "beshterek",
+   "name": {
+    "en": "Besh-Terek",
+    "ir": "Besh-Terek",
+    "ru": "Беш-Терек"
+   },
+   "city": {
+    "en": "Besh-Terek, Chu District",
+    "ir": "Besh-Terek, Chüy aymagı",
+    "ru": "Беш-Терек, Чуйский район"
+   }
+  },
+  {
+   "id": "akademiya",
+   "name": {
+    "en": "Akademiya Talas",
+    "ir": "Akademiya Talas",
+    "ru": "Академия Талас"
+   },
+   "city": {
+    "en": "Talas",
+    "ir": "Talas",
+    "ru": "Талас"
+   }
+  },
+  {
+   "id": "navbahor",
+   "name": {
+    "en": "Navbahor Nurzhan",
+    "ir": "Navbahor Nurzhan",
+    "ru": "Навбахор Нуржан"
+   },
+   "city": {
+    "en": "Nurzhan",
+    "ir": "Nurzhan",
+    "ru": "Нуржан"
+   }
+  }
+ ],
+ "table": [
+  {
+   "club": "toktogul",
+   "p": 20,
+   "w": 11,
+   "d": 5,
+   "l": 4,
+   "gf": 30,
+   "ga": 20,
+   "pts": 38
+  },
+  {
+   "club": "politekhnik",
+   "p": 20,
+   "w": 10,
+   "d": 6,
+   "l": 4,
+   "gf": 31,
+   "ga": 21,
+   "pts": 36
+  },
+  {
+   "club": "semiz",
+   "p": 20,
+   "w": 9,
+   "d": 5,
+   "l": 6,
+   "gf": 34,
+   "ga": 28,
+   "pts": 32
+  },
+  {
+   "club": "bazarkorgon",
+   "p": 20,
+   "w": 7,
+   "d": 5,
+   "l": 8,
+   "gf": 30,
+   "ga": 28,
+   "pts": 26
+  },
+  {
+   "club": "karabulak",
+   "p": 20,
+   "w": 7,
+   "d": 4,
+   "l": 9,
+   "gf": 26,
+   "ga": 27,
+   "pts": 25
+  },
+  {
+   "club": "navbahor",
+   "p": 20,
+   "w": 7,
+   "d": 4,
+   "l": 9,
+   "gf": 27,
+   "ga": 35,
+   "pts": 25
+  },
+  {
+   "club": "akademiya",
+   "p": 20,
+   "w": 6,
+   "d": 4,
+   "l": 10,
+   "gf": 24,
+   "ga": 26,
+   "pts": 22
+  },
+  {
+   "club": "beshterek",
+   "p": 20,
+   "w": 6,
+   "d": 1,
+   "l": 13,
+   "gf": 16,
+   "ga": 33,
+   "pts": 19
+  }
+ ],
+ "latest": {
+  "date": "2026-10-25",
+  "home": "toktogul",
+  "away": "semiz",
+  "score": [
+   3,
+   0
+  ]
+ },
+ "last_round": {
+  "round": 20,
+  "date": "2026-10-25",
+  "time": "15:00",
+  "matches": [
+   {
+    "home": "toktogul",
+    "away": "semiz",
+    "score": [
+     3,
+     0
+    ]
+   },
+   {
+    "home": "politekhnik",
+    "away": "bazarkorgon",
+    "score": [
+     5,
+     1
+    ]
+   },
+   {
+    "home": "akademiya",
+    "away": "navbahor",
+    "score": [
+     0,
+     1
+    ]
+   },
+   {
+    "home": "beshterek",
+    "away": "karabulak",
+    "score": [
+     0,
+     1
+    ]
+   }
+  ]
+ }
+}
