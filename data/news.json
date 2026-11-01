@@ -2,6 +2,35 @@
  "_note": "Federation news. Newest first is not required: the site sorts by date. title and summary in en, ir, ru; body in en and ru (Iradi readers see the English body with a note).",
  "items": [
   {
+   "id": "2026-10-31-neftchi-champions",
+   "date": "2026-10-31",
+   "tag": "league",
+   "title": {
+    "en": "Neftchi Nurzhan are the 2026 Irad League champions",
+    "ir": "Neftchi Nurzhan – 2026-jılkı Irad Ligasynyn chempionu",
+    "ru": "«Нефтчи Нуржан» — чемпион Лиги Ирада 2026 года"
+   },
+   "summary": {
+    "en": "Neftchi Nurzhan beat Tulpar Talas 2–1 at NurGaz Stadium in the last round and finish one point clear, 63 to 62. It is the club's fourteenth title. Naryn Tash-Kömür are relegated.",
+    "ir": "Neftchi Nurzhan akırkı turda NurGaz stadionunda Tulpar Talastı 2:1 esebinde utup, 63 upay menen bir upay aldıda büttü. Bul klubdun on törtünchü chempiondugu. Naryn Tash-Kömür Birinchi Ligaga tüshtü.",
+    "ru": "«Нефтчи Нуржан» обыграл «Тулпар Талас» со счётом 2:1 на стадионе «НурГаз» в последнем туре и опередил соперника на одно очко, 63 против 62. Это четырнадцатый титул клуба. «Нарын Таш-Кумыр» покидает лигу."
+   },
+   "body": {
+    "en": [
+     "Neftchi Nurzhan are the champions of the 2026 Irad League. In the 27th and last round on Saturday 31 October, Neftchi beat Tulpar Talas 2–1 in the Kara-Ak derby at a sold-out NurGaz Stadium and finished the season on 63 points, one ahead of Tulpar on 62.",
+     "It is Neftchi's fourteenth league title and their second in a row. Tulpar Talas finish as runners-up. Dastgoh Nurzhan are third on 42 points.",
+     "Naryn Tash-Kömür finish last on 8 points and are relegated to the First League. Their place is taken by the winner of the First League, decided in the last round on Sunday 1 November.",
+     "The trophy will be presented to Neftchi Nurzhan at a date to be announced by the Federation."
+    ],
+    "ru": [
+     "«Нефтчи Нуржан» — чемпион Лиги Ирада 2026 года. В 27-м, последнем туре в субботу, 31 октября, «Нефтчи» обыграл «Тулпар Талас» со счётом 2:1 в дерби «Кара-Ак» на заполненном стадионе «НурГаз» и завершил сезон с 63 очками, на одно больше, чем у «Тулпара» (62).",
+     "Это четырнадцатый чемпионский титул «Нефтчи» и второй подряд. «Тулпар Талас» стал серебряным призёром. Третье место у «Дастгоха Нуржан» (42 очка).",
+     "«Нарын Таш-Кумыр» занял последнее место (8 очков) и выбывает в Первую лигу. Его место займёт победитель Первой лиги, который определится в последнем туре в воскресенье, 1 ноября.",
+     "Дата вручения кубка «Нефтчи Нуржан» будет объявлена Федерацией дополнительно."
+    ]
+   }
+  },
+  {
    "id": "2026-10-23-round-26-referees",
    "date": "2026-10-23",
    "tag": "league",
