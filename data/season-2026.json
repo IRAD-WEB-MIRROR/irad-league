@@ -1651,7 +1651,10 @@
      "away": "tulpar",
      "time": "18:00",
      "venue": "nurgaz-stadium",
-     "score": null,
+     "score": [
+      2,
+      1
+     ],
      "tv": [
       "IradOne Sport",
       "IradOdin"
@@ -1663,7 +1666,10 @@
      "away": "naryn",
      "time": "17:00",
      "venue": "lokomotiv-stadium",
-     "score": null
+     "score": [
+      2,
+      0
+     ]
     },
     {
      "id": "2026-r27-3",
@@ -1671,7 +1677,10 @@
      "away": "karabuura",
      "time": "17:00",
      "venue": "attelkom-park",
-     "score": null
+     "score": [
+      2,
+      0
+     ]
     },
     {
      "id": "2026-r27-4",
@@ -1679,7 +1688,10 @@
      "away": "universitet",
      "time": "17:00",
      "venue": "iyikjanyl-city-stadium",
-     "score": null
+     "score": [
+      2,
+      3
+     ]
     },
     {
      "id": "2026-r27-5",
@@ -1687,7 +1699,10 @@
      "away": "dastgoh",
      "time": "17:00",
      "venue": "kombinat-stadium",
-     "score": null
+     "score": [
+      1,
+      2
+     ]
     }
    ]
   }
