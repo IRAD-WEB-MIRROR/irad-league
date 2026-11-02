@@ -2,8 +2,8 @@
  "_note": "First League 2026 (triple round robin, 21 rounds, Sundays). Table after the last round played; `next` is the coming round, `upcoming` the rounds after it.",
  "season": 2026,
  "rounds": 21,
- "after_round": 20,
- "after_date": "2026-10-25",
+ "after_round": 21,
+ "after_date": "2026-11-01",
  "next": {
   "round": 21,
   "date": "2026-11-01",
@@ -11,19 +11,35 @@
   "matches": [
    {
     "home": "politekhnik",
-    "away": "toktogul"
+    "away": "toktogul",
+    "score": [
+     2,
+     2
+    ]
    },
    {
     "home": "semiz",
-    "away": "akademiya"
+    "away": "akademiya",
+    "score": [
+     3,
+     1
+    ]
    },
    {
     "home": "karabulak",
-    "away": "bazarkorgon"
+    "away": "bazarkorgon",
+    "score": [
+     2,
+     0
+    ]
    },
    {
     "home": "navbahor",
-    "away": "beshterek"
+    "away": "beshterek",
+    "score": [
+     0,
+     4
+    ]
    }
   ]
  },
@@ -142,92 +158,92 @@
  "table": [
   {
    "club": "toktogul",
-   "p": 20,
+   "p": 21,
    "w": 11,
-   "d": 5,
+   "d": 6,
    "l": 4,
-   "gf": 30,
-   "ga": 20,
-   "pts": 38
+   "gf": 32,
+   "ga": 22,
+   "pts": 39
   },
   {
    "club": "politekhnik",
-   "p": 20,
+   "p": 21,
    "w": 10,
-   "d": 6,
+   "d": 7,
    "l": 4,
-   "gf": 31,
-   "ga": 21,
-   "pts": 36
+   "gf": 33,
+   "ga": 23,
+   "pts": 37
   },
   {
    "club": "semiz",
-   "p": 20,
-   "w": 9,
+   "p": 21,
+   "w": 10,
    "d": 5,
    "l": 6,
-   "gf": 34,
-   "ga": 28,
-   "pts": 32
-  },
-  {
-   "club": "bazarkorgon",
-   "p": 20,
-   "w": 7,
-   "d": 5,
-   "l": 8,
-   "gf": 30,
-   "ga": 28,
-   "pts": 26
+   "gf": 37,
+   "ga": 29,
+   "pts": 35
   },
   {
    "club": "karabulak",
-   "p": 20,
-   "w": 7,
+   "p": 21,
+   "w": 8,
    "d": 4,
    "l": 9,
-   "gf": 26,
+   "gf": 28,
    "ga": 27,
-   "pts": 25
+   "pts": 28
+  },
+  {
+   "club": "bazarkorgon",
+   "p": 21,
+   "w": 7,
+   "d": 5,
+   "l": 9,
+   "gf": 30,
+   "ga": 30,
+   "pts": 26
   },
   {
    "club": "navbahor",
-   "p": 20,
+   "p": 21,
    "w": 7,
    "d": 4,
-   "l": 9,
+   "l": 10,
    "gf": 27,
-   "ga": 35,
+   "ga": 39,
    "pts": 25
   },
   {
    "club": "akademiya",
-   "p": 20,
+   "p": 21,
    "w": 6,
    "d": 4,
-   "l": 10,
-   "gf": 24,
-   "ga": 26,
+   "l": 11,
+   "gf": 25,
+   "ga": 29,
    "pts": 22
   },
   {
    "club": "beshterek",
-   "p": 20,
-   "w": 6,
+   "p": 21,
+   "w": 7,
    "d": 1,
    "l": 13,
-   "gf": 16,
+   "gf": 20,
    "ga": 33,
-   "pts": 19
+   "pts": 22
   }
  ],
  "latest": {
-  "date": "2026-10-25",
-  "home": "toktogul",
-  "away": "semiz",
+  "date": "2026-11-01",
+  "home": "politekhnik",
+  "away": "toktogul",
   "score": [
-   3,
-   0
+   2,
+   2
   ]
  },
  "last_round": {
