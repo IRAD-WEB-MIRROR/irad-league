@@ -406,7 +406,7 @@
     var order = Object.keys(GROUNDS).sort(function (a, b) { return GROUNDS[b].capacity - GROUNDS[a].capacity; });
     g.innerHTML = order.map(function (k) {
       var x = GROUNDS[k], others = LANGS.filter(function (l) { return l !== LANG; }).map(function (l) { return x.name[l]; }).filter(function (n) { return n !== L(x.name); });
-      return '<div class="card std" id="' + k + '"><h3>' + esc(L(x.name)) + '</h3><div class="alt">' + esc(others.join(" · ")) + '</div><div class="cap">' + x.capacity.toLocaleString(LANG === "ru" ? "ru-RU" : "en-GB") + '</div><div class="small muted">' + esc(t("capacity")) +
+      return '<div class="card std" id="' + k + '">' + (x.logo ? '<img class="std-logo" src="' + esc(L(x.logo)) + '" alt="' + esc(L(x.name)) + '" width="200" height="62" loading="lazy">' : "") + '<h3>' + esc(L(x.name)) + '</h3><div class="alt">' + esc(others.join(" · ")) + '</div><div class="cap">' + x.capacity.toLocaleString(LANG === "ru" ? "ru-RU" : "en-GB") + '</div><div class="small muted">' + esc(t("capacity")) +
         '</div><div class="row"><span>' + esc(L(x.city)) + "</span><span>" + esc(t("opened")) + " " + x.opened + "</span>" + (x.rebuilt ? "<span>" + esc(t("rebuilt")) + " " + x.rebuilt + "</span>" : "") +
         (x.map ? '<span><a href="https://maps.attelkom.net/#map=16/' + x.map[0] + "/" + x.map[1] + '" rel="noopener">' + esc(t("onMap")) + " ↗</a></span>" : "") + "</div><p>" + esc(L(x.note)) + '</p><div class="clubs">' + (byGround[k] || []).map(function (id) { return clubLink(id); }).join("") + "</div></div>";
     }).join("");

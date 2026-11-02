@@ -539,6 +539,11 @@
  ],
  "grounds": {
   "silk-road-arena": {
+   "logo": {
+    "en": "assets/venues/silkroadarena-logo.svg",
+    "ir": "assets/venues/silkroadarena-logo.svg",
+    "ru": "assets/venues/silkroadarena-logo-cyrillic.svg"
+   },
    "name": {
     "en": "Silk Road Arena",
     "ir": "Jibek Jolu Arenasy",
