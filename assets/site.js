@@ -170,7 +170,7 @@
   }
   /* ---------- header and footer ---------- */
   var NAV = [["home", "index.html"], ["table", "table.html"], ["fixtures", "fixtures.html"], ["clubs", "clubs.html"], ["champions", "champions.html"],
-    ["derby", "derby.html"], ["cup", "cup.html"], { g: "more", items: [["news", "news.html"], ["stadiums", "stadiums.html"], ["first", "first-league.html"], ["women", "womens-league.html"], ["about", "about.html"]] }];
+    ["derby", "derby.html"], ["cup", "cup.html"], { g: "more", items: [["news", "news.html"], ["stadiums", "stadiums.html"], ["first", "first-league.html"], ["women", "womens-league.html"], ["predictor", "predictor.html"], ["about", "about.html"]] }];
   function navLabel(k) { var s = I.ui[LANG]["navS_" + k] || I.ui.en["navS_" + k]; return s ? s : t("nav_" + k); }
   function renderChrome() {
     var top = $("#top");
@@ -511,10 +511,137 @@
     if (location.hash) { var el = document.getElementById(decodeURIComponent(location.hash.slice(1))); if (el) setTimeout(function () { el.scrollIntoView(); }, 30); }
   };
 
+  /* ---------- predictor: kept in this browser only (localStorage), nothing is sent ---------- */
+  var PKEY = "iradleague_predictor";
+  function pState() { var o = null; try { o = JSON.parse(localStorage.getItem(PKEY) || "null"); } catch (e) {} if (!o || typeof o !== "object") o = {}; if (!o.picks) o.picks = {}; return o; }
+  function pSave(o) { try { localStorage.setItem(PKEY, JSON.stringify(o)); return true; } catch (e) { return false; } }
+  function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(s) { var a = hash(s); return function () { a = (a + 0x6D2B79F5) | 0; var x = Math.imul(a ^ (a >>> 15), 1 | a); x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x; return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+  /* the panel: the IradOne Sport pundit and regulars of the league's Tulpar channel; picks are fixed per match */
+  var PANEL = [{ n: "Yegor Gromov", club: "neftchi", pundit: true }, { n: "kara_ak_1994", club: "tulpar" }, { n: "neftchi_sever", club: "neftchi" },
+    { n: "temirjol_dad", club: "temirjolchu" }, { n: "attelkom_park_east", club: "attelkom" }, { n: "dastgoh_kombinat", club: "dastgoh" },
+    { n: "iyikjanyl_stand_b", club: "iyikjanyl" }, { n: "student_stand_tsu", club: "universitet" }, { n: "karabuura_aksakal", club: "karabuura" }];
+  var LINES = [[1, 0, 9], [2, 1, 9], [1, 1, 8], [2, 0, 6], [0, 0, 4], [0, 1, 6], [1, 2, 6], [2, 2, 3], [3, 1, 3], [0, 2, 3], [3, 0, 2], [1, 3, 2], [3, 2, 1], [4, 1, 1]];
+  function panelPick(p, m) {
+    var r = rng(p.n + "|" + m.id), tot = 0, i, u;
+    LINES.forEach(function (l) { tot += l[2]; });
+    u = r() * tot; for (i = 0; i < LINES.length; i++) { u -= LINES[i][2]; if (u < 0) break; }
+    var s = [LINES[Math.min(i, LINES.length - 1)][0], LINES[Math.min(i, LINES.length - 1)][1]];
+    var mine = m.home === p.club ? 0 : m.away === p.club ? 1 : -1;
+    if (mine >= 0 && r() < (p.pundit ? 1 : 0.75) && s[mine] <= s[1 - mine]) s = s[mine] === s[1 - mine] ? (mine ? [s[0], s[1] + 1] : [s[0] + 1, s[1]]) : [s[1], s[0]];
+    return s;
+  }
+  function pPoints(pick, sc) {
+    if (!pick || !sc) return null;
+    if (pick[0] === sc[0] && pick[1] === sc[1]) return 3;
+    return Math.sign(pick[0] - pick[1]) === Math.sign(sc[0] - sc[1]) ? 1 : 0;
+  }
+  function kickoff(date, time) { var p = date.split("-"), h = (time || "00:00").split(":"); return Date.UTC(+p[0], +p[1] - 1, +p[2], +h[0] - 6, +h[1]); }
+  function matchdays(D) {
+    var out = [];
+    D.season.rounds.forEach(function (r) {
+      out.push({ key: "r" + r.round, label: t("round", { n: r.round }), date: r.date, matches: r.matches.map(function (m) { return { id: m.id, home: m.home, away: m.away, time: m.time, score: m.score, venue: m.venue }; }) });
+    });
+    (D.cup.rounds || []).forEach(function (r) {
+      out.push({ key: "cup-" + r.key, label: t("nav_cup") + " · " + t(r.key === "final" ? "final" : "semi"), date: r.date,
+        matches: r.matches.map(function (m, i) { return { id: "cup-" + D.cup.season + "-" + r.key + "-" + (i + 1), home: m.home, away: m.away, time: m.time, score: m.score, venue: m.venue, neutral: m.neutral, cup: true }; }) });
+    });
+    out.sort(function (a, b) { return a.date < b.date ? -1 : a.date > b.date ? 1 : 0; });
+    return out;
+  }
+  function dayTable(md, S) {
+    var rows = PANEL.map(function (p) { return { n: p.n, pundit: p.pundit, pts: 0, ex: 0, ok: 0 }; });
+    var you = { n: S.name || t("pYou"), you: true, pts: 0, ex: 0, ok: 0 };
+    md.matches.forEach(function (m) {
+      if (!m.score) return;
+      PANEL.forEach(function (p, i) { var x = pPoints(panelPick(p, m), m.score); rows[i].pts += x; if (x === 3) rows[i].ex++; if (x) rows[i].ok++; });
+      var y = pPoints(S.picks[m.id], m.score); if (y != null) { you.pts += y; if (y === 3) you.ex++; if (y) you.ok++; }
+    });
+    rows.push(you);
+    rows.sort(function (a, b) { return b.pts - a.pts || b.ex - a.ex || (a.you ? -1 : b.you ? 1 : a.n < b.n ? -1 : 1); });
+    return rows;
+  }
+  function predTable(rows, cap) {
+    return '<div class="tbl"><table class="lt short"><thead><tr><th>' + esc(t("pos")) + '</th><th class="l">' + esc(cap) + '</th><th title="' + esc(t("pExact_t")) + '">' + esc(t("pExact")) + '</th><th title="' + esc(t("pRes_t")) + '">' + esc(t("pRes")) + '</th><th class="pts">' + esc(t("pts")) + "</th></tr></thead><tbody>" +
+      rows.map(function (r, i) {
+        return '<tr class="' + (r.you ? "hl" : "") + '"><td class="pos">' + (i + 1) + '</td><td class="l">' + (r.you ? "<b>" + esc(r.n) + "</b>" : esc(r.n)) + (r.pundit ? ' <span class="small muted">IradOne Sport</span>' : "") + "</td><td>" + r.ex + "</td><td>" + r.ok + '</td><td class="pts">' + r.pts + "</td></tr>";
+      }).join("") + "</tbody></table></div>";
+  }
+  R.predictor = function (D) {
+    var S = pState(), now = Date.now(), MD = matchdays(D), root = $("#pred");
+    var open = MD.filter(function (md) { return md.matches.some(function (m) { return !m.score && kickoff(md.date, m.time) > now; }); }).slice(0, 2);
+    var mine = MD.filter(function (md) { return md.matches.some(function (m) { return m.score && S.picks[m.id]; }); });
+    var h = "";
+    /* name + open matchdays */
+    h += '<section class="card flush"><div class="card-h"><h2>' + esc(t("pYourH")) + '</h2><span class="sub"><a href="predictor-rules.html">' + esc(t("pRulesLink")) + "</a></span></div>" +
+      '<div style="padding:12px 18px 0"><label class="small" for="pname">' + esc(t("pName")) + '</label> <input id="pname" class="p-name" maxlength="24" autocomplete="nickname" value="' + esc(S.name || "") + '" placeholder="' + esc(t("pYou")) + '"></div>';
+    if (!open.length) h += '<p class="note" style="padding:12px 18px 16px;margin:0">' + esc(t("pNone")) + "</p>";
+    open.forEach(function (md) {
+      h += '<div class="day-h"><span>' + esc(md.label) + "</span><span>" + esc(fmtDate(md.date, { day: true })) + '</span></div><ul class="mlist">' +
+        md.matches.map(function (m) {
+          var lock = m.score || kickoff(md.date, m.time) <= now, p = S.picks[m.id] || ["", ""];
+          var mid = lock ? '<div class="sc' + (m.score ? "" : " wait") + '">' + (m.score ? score(m.score) : esc(t("pLocked"))) + "</div>" :
+            '<div class="sc p-in"><input type="number" min="0" max="20" inputmode="numeric" data-m="' + m.id + '" data-s="0" value="' + p[0] + '" aria-label="' + esc(t("pHomeGoals")) + '">' +
+            '<span>–</span><input type="number" min="0" max="20" inputmode="numeric" data-m="' + m.id + '" data-s="1" value="' + p[1] + '" aria-label="' + esc(t("pAwayGoals")) + '"></div>';
+          var meta = [esc(m.time) + " · " + esc(groundName(m.venue)) + (m.neutral ? " (" + esc(t("neutral")) + ")" : "")];
+          if (lock && S.picks[m.id]) meta.push(esc(t("pYourPick")) + ": <b>" + score(S.picks[m.id]) + "</b>");
+          return '<li class="m pm"><div class="h">' + clubLink(m.home) + "</div>" + mid + '<div class="a">' + clubLink(m.away) + '</div><div class="meta">' + meta.join(" · ") + "</div></li>";
+        }).join("") + "</ul>";
+    });
+    if (open.length) h += '<p class="small muted" style="padding:8px 18px 14px;margin:0" id="psaved">' + esc(t("pSavedHere")) + "</p>";
+    h += "</section>";
+    /* the last matchday with results: the table */
+    var played = MD.filter(function (md) { return md.matches.some(function (m) { return m.score; }); });
+    var last = mine.length ? mine[mine.length - 1] : played[played.length - 1];
+    if (last) {
+      var rows = dayTable(last, S), youRow = rows.filter(function (r) { return r.you; })[0], rank = rows.indexOf(youRow) + 1;
+      h += '<section class="card flush sect"><div class="card-h"><h2>' + esc(t("pDayH", { m: last.label })) + '</h2><span class="sub">' + esc(fmtDate(last.date, { day: true })) + "</span></div>" + predTable(rows, t("pPlayer")) +
+        '<ul class="mlist">' + last.matches.filter(function (m) { return m.score; }).map(function (m) {
+          var pk = S.picks[m.id], x = pPoints(pk, m.score);
+          return '<li class="m"><div class="h">' + clubLink(m.home) + '</div><div class="sc">' + score(m.score) + '</div><div class="a">' + clubLink(m.away) + '</div><div class="meta">' +
+            (pk ? esc(t("pYourPick")) + ": <b>" + score(pk) + "</b> · " + esc(t("pGot", { n: x })) : esc(t("pNoPick"))) + "</div></li>";
+        }).join("") + "</ul>";
+      if (mine.length && mine[mine.length - 1] === last) {
+        var share = t("pShare", { m: last.label, d: fmtDate(last.date, { short: true }), p: youRow.pts, e: youRow.ex, r: rank, n: rows.length }) + " https://iradleague.com/predictor.html";
+        h += '<div style="padding:4px 18px 16px"><label class="small" for="pshare">' + esc(t("pShareH")) + '</label><textarea id="pshare" class="p-share" rows="3" readonly>' + esc(share) + '</textarea><button type="button" class="p-btn" id="pcopy">' + esc(t("pCopy")) + "</button></div>";
+        if (mine.length === 1) h += '<p style="padding:0 18px 16px;margin:0"><button type="button" class="p-btn p-ghost" id="pclear">' + esc(t("pClear")) + "</button></p>";
+      } else h += '<p class="small muted" style="padding:4px 18px 16px;margin:0">' + esc(t("pNotYou")) + "</p>";
+      h += "</section>";
+    }
+    /* every matchday you played: head to head with the panel */
+    if (mine.length > 1) {
+      var tot = {}, list = [];
+      mine.forEach(function (md) { dayTable(md, S).forEach(function (r) { var k = r.you ? "\u0000you" : r.n; if (!tot[k]) { tot[k] = { n: r.n, you: r.you, pundit: r.pundit, pts: 0, ex: 0, ok: 0 }; list.push(tot[k]); } tot[k].pts += r.pts; tot[k].ex += r.ex; tot[k].ok += r.ok; }); });
+      list.sort(function (a, b) { return b.pts - a.pts || b.ex - a.ex || (a.you ? -1 : b.you ? 1 : a.n < b.n ? -1 : 1); });
+      h += '<section class="card flush sect"><div class="card-h"><h2>' + esc(t("pSeasonH")) + '</h2><span class="sub">' + esc(t("pOver", { n: mine.length })) + "</span></div>" + predTable(list, t("pPlayer")) +
+        '<p class="small muted" style="padding:4px 18px 16px;margin:0">' + esc(t("pOverNote")) + ' <button type="button" class="p-btn p-ghost" id="pclear">' + esc(t("pClear")) + "</button></p></section>";
+    }
+    root.innerHTML = h;
+    function store() { var ok = pSave(S), el = $("#psaved"); if (el) el.textContent = t(ok ? "pSaved" : "pNoStore"); }
+    $$("input[data-m]", root).forEach(function (inp) {
+      inp.addEventListener("input", function () {
+        var id = inp.getAttribute("data-m"), a = $$('input[data-m="' + id + '"]', root), v = a.map(function (x) { return x.value === "" ? null : Math.max(0, Math.min(20, Math.floor(+x.value))); });
+        if (v[0] == null || v[1] == null || isNaN(v[0]) || isNaN(v[1])) delete S.picks[id]; else S.picks[id] = v;
+        store();
+      });
+    });
+    var nm = $("#pname"); if (nm) nm.addEventListener("change", function () { S.name = nm.value.replace(/\s+/g, " ").trim().slice(0, 24); store(); R.predictor(D); });
+    var cp = $("#pcopy"); if (cp) cp.addEventListener("click", function () {
+      var ta = $("#pshare"); ta.select();
+      var done = function () { cp.textContent = t("pCopied"); };
+      if (navigator.clipboard) navigator.clipboard.writeText(ta.value).then(done, function () { try { document.execCommand("copy"); done(); } catch (e) {} });
+      else { try { document.execCommand("copy"); done(); } catch (e) {} }
+    });
+    var cl = $("#pclear"); if (cl) cl.addEventListener("click", function () {
+      if (!cl._armed) { cl._armed = true; cl.textContent = t("pClearSure"); return; }
+      try { localStorage.removeItem(PKEY); } catch (e) {} R.predictor(D);
+    });
+  };
+
   /* ---------- run ---------- */
   var NEEDS = {
     home: ["season", "news", "cup"], table: ["season"], fixtures: ["season"], clubs: ["season"], club: ["season", "champions"], stadiums: [],
-    champions: ["champions"], derby: ["season", "champions"], cup: ["cup"], first: ["first"], women: ["women"], news: ["news"]
+    champions: ["champions"], derby: ["season", "champions"], cup: ["cup"], first: ["first"], women: ["women"], news: ["news"], predictor: ["season", "cup"]
   };
   var FILES = { season: SEASON_FILE, news: "data/news.json", cup: "data/cup-2026.json", champions: "data/champions.json", first: "data/first-league-2026.json", women: "data/womens-league-2026.json" };
   var DATA = null;
